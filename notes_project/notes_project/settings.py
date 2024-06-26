@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-d0%$#2!52ju@g)&($zxc=fkg9#&==*z^2eh_ha3*!*0qi+xnk7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [['notes-ai-8eww.onrender.com', 'localhost', '127.0.0.1']]
 
 
 # Application definition
