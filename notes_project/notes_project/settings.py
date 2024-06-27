@@ -70,6 +70,10 @@ TEMPLATES = [
     },
 ]
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'notes-frontend', 'build', 'static'),
+]
+
 WSGI_APPLICATION = "notes_project.wsgi.application"
 
 
