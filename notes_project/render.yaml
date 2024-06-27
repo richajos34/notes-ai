@@ -2,7 +2,7 @@ services:
   - type: web
     name: notes-ai
     env: python
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate
+    buildCommand: pip install -r requirements.txt && npm install --prefix notes_project/notes_project/notes-frontend && npm run build --prefix notes_project/notes_project/notes-frontend && python manage.py collectstatic --no-input && python manage.py migrate
     startCommand: gunicorn notes_project.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE

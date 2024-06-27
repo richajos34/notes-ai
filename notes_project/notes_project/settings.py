@@ -57,7 +57,7 @@ ROOT_URLCONF = "notes_project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'notes-frontend', 'build')],
+        "DIRS": [os.path.join(BASE_DIR, 'notes_project', 'notes-frontend', 'build')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -71,7 +71,7 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'notes-frontend', 'build', 'static'),
+     os.path.join(BASE_DIR, 'notes_project', 'notes-frontend', 'build', 'static'),
 ]
 
 WSGI_APPLICATION = "notes_project.wsgi.application"
