@@ -16,8 +16,9 @@ Including another URLconf
 """
 # notes_project/urls.py
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 from .views import home  # Import the home view
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
