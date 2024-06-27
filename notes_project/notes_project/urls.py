@@ -22,5 +22,5 @@ from .views import home  # Import the home view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    path('', home),  # Add this line for the root URL
+    re_path('.*', TemplateView.as_view(template_name='index.html')),  # Add this line for the root URL
 ]
