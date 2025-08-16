@@ -187,7 +187,7 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
         responses_count = 0
         for _ in range(PROBE_ATTEMPT_COUNT):
             sendsock.sendto("dataPacket".encode(), (ip, TRACEROUTE_PORT_NUMBER))
-            
+        #B1
         while(responses_count < PROBE_ATTEMPT_COUNT):
             if recvsock.recv_select():
                 buf, address = recvsock.recvfrom()
@@ -195,10 +195,28 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
             else:
                 break
             
+            #B6
+            if(len(buf) < 20):
+                continue
             try:
                 ipv4_header = IPv4(buf)
+                icmp_payload = buf[ipv4_header.header_len:]
+                #B5 (4 bytes long)
+                if len(icmp_payload) < 4:
+                    continue
+                
+                imcp_header = ICMP(buf[ipv4_header.header_len:])
+                #B2
+                if(imcp_header.type not in [11, 3]):
+                    continue
+                #B3
+                if(imcp_header.type == 11 and imcp_header.code != 0):
+                    continue
+                #B4
+                if(ipv4_header.proto != 1):
+                    continue
             except:
-                break
+                break #invalid packet
             
             #duplicates
             if ipv4_header.src not in routers_at_this_hop:
