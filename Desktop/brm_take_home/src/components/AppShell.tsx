@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -11,6 +12,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
+  SidebarInset,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -24,9 +26,14 @@ import {
   LogOut,
   User,
 } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -46,8 +53,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full">
-        {/* Sidebar */}
+      {/* Make sidebar + content sit side-by-side and fill height */}
+      <div className="flex min-h-screen w-full">
+        {/* Left rail */}
         <Sidebar className="border-r border-border">
           <SidebarHeader className="p-6 border-b border-border">
             <h1 className="font-medium text-lg">ContractHub</h1>
@@ -79,17 +87,22 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </SidebarContent>
         </Sidebar>
 
-        {/* Main */}
-        <div className="flex-1 flex flex-col">
+        {/* Everything that should appear next to the sidebar */}
+        <SidebarInset className="flex w-full flex-col">
           {/* Top bar */}
           <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="flex h-16 items-center justify-between px-6">
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="md:hidden" />
               </div>
-
               <div className="flex items-center gap-4">
-                <Button variant="ghost" size="icon" onClick={toggleDarkMode} className="rounded-full">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={toggleDarkMode}
+                  className="rounded-full"
+                  aria-label="Toggle theme"
+                >
                   {isDark ? <Sun size={18} /> : <Moon size={18} />}
                 </Button>
 
@@ -120,7 +133,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
           {/* Page content */}
           <main className="flex-1 p-6 overflow-auto">{children}</main>
-        </div>
+        </SidebarInset>
       </div>
     </SidebarProvider>
   );

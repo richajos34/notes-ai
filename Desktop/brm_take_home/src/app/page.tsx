@@ -10,8 +10,6 @@ import {AgreementDrawer} from "@/components/AgreementDrawer";
 
 export default function Home() {
   return (
-    <AppShell>
       <Dashboard />
-    </AppShell>
   );
 }
